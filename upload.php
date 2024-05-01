@@ -4,14 +4,18 @@ if(!empty($_POST)) {
     $postDescription = $_POST['postDescription'];
     $targetDirectory = "img/";
     $fileName = hash('sha256', $_FILES['file']['name'].microtime());
+    
     $fileString = file_get_contents($_FILES['file']['tmp_name']);
+
     $gdImage = imagecreatefromstring($fileString);
 
-    $finalUrl = "http://localhost/cms/img/".$fileName.".webp";
 
+    $finalUrl = "http://localhost/cms/img/".$fileName.".webp";
     $internalUrl = "img/".$fileName.".webp";
 
+
     imagewebp($gdImage, $internalUrl);
+
 
     $authorID = 1;
 
@@ -38,7 +42,7 @@ if(!empty($_POST)) {
         <label for="postDescriptionInput">Opis posta:</label>
         <input type="text" name="postDescription" id="postDescriptionInput">
         <br>
-        <label for="fileInput">Obraz:</label>
+        <label for="fileInput">Obrazek:</label>
         <input type="file" name="file" id="fileInput">
         <br>
         <input type="submit" value="Wyślij!">

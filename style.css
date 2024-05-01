@@ -4,13 +4,10 @@ body {
 }
 header {
     background-color: lightgray;
-    margin-bottom: 10vh;
     text-align: center;
     padding: 10px;
 }
-div#container {
-    
-}
+
 
 div.post-block {
     width: 50vw;
