@@ -1,5 +1,8 @@
 <?php
+//włącz obsługę sesji w tym pliku
 session_start();
+//zaimportuj definicję klasy
+//require wymaga zaimportowania - wykrzaczy skrypt jeśli nie uda się zaimportować
 require("./class/User.class.php");
 ?>
 <!DOCTYPE html>

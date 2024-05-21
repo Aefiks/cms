@@ -1,5 +1,6 @@
 <?php
 require_once("class/User.class.php");
+require_once("class/Post.class.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -35,39 +36,23 @@ session_start();
             <?php endif; ?>  
         </nav>
         <?php
-        $db = new mysqli('localhost', 'root', '', 'cms');
-        $q = $db->prepare("SELECT post.id, post.imgUrl, post.title, 
-                                    post.timestamp, user.email 
-                            FROM `post` 
-                            INNER JOIN user ON post.author = user.ID
-                            ORDER BY post.timestamp DESC;");
-        $q->execute();
-        $result = $q->get_result();
-        while($row = $result->fetch_assoc()) {
+        $postList = Post::GetPosts();
+        foreach ($postList as $post) {
+
             echo '<div class="post-block">';
-            echo '<h2 class="post-title">'.$row['title'].'</h3>';
-            echo '<h3 class="post-author">'.$row['email'].'</h6>';
-            echo '<img src="'.$row['imgUrl'].'" alt="obrazek posta" class="post-image">';
-            echo '<p class="post-description">TODO: Opis posta</p>';
+            echo '<h2 class="post-title">'.$post->GetTitle().'</h3>';
+            echo '<h3 class="post-author">'.$post->GetAuthor().'</h6>';
+            echo '<h3 class="post-author">'.$post->GetAuthorEmail().'</h6>';
+            echo '<img src="'.$post->GetImageURL().'" alt="obrazek posta" class="post-image">';
             echo '<div class="post-footer">
-                <span class="post-meta">'.$row['timestamp'].'</span>
+                <span class="post-meta">'.$post->GetTimestamp().'</span>
                 <span class="post-score">TODO: punkty</span>
                 </div>';
-            echo '</div>';
+            echo '</div>'; 
         }
-        ?>
 
-<div class="post-block">
-            <h2 class="post-title">Tytuł posta</h3>
-            <h3 class="post-author">Autor posta</h6>
-            <img src="https://picsum.photos/800/600" alt="obrazek posta" class="post-image">
-            <p class="post-description">Opis posta</p>
-            <div class="post-footer">
-                <span class="post-meta">Data i czas</span>
-                <span class="post-score">+ i -</span>
-            </div>
-            
-        </div>
+
+
     </div>
     <script src="https://kit.fontawesome.com/4f765d06bb.js" crossorigin="anonymous"></script>
 </body>
